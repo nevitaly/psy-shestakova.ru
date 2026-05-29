@@ -164,32 +164,27 @@ function slideCerts(direction) {
   });
 }
 
-// Certificate array IDs
+// Certificate array paths
 const certsList = [
-  'diploma1',
-  'diploma2',
-  'diploma3',
-  'diploma4'
+  'img/certificates/1.jpg',
+  'img/certificates/2.jpg',
+  'img/certificates/3.jpg',
+  'img/certificates/4.jpg',
+  'img/certificates/5.jpg',
+  'img/certificates/6.jpg',
+  'img/certificates/7.jpg'
 ];
 let currentCertIndex = 0;
 
-function openCert(certId) {
+function openCert(index) {
   const lightbox = document.getElementById('lightbox');
   const lightboxImg = document.getElementById('lightbox-img');
 
-  currentCertIndex = certsList.indexOf(certId);
-  if (currentCertIndex === -1) currentCertIndex = 0;
+  currentCertIndex = index;
+  if (currentCertIndex < 0) currentCertIndex = certsList.length - 1;
+  if (currentCertIndex >= certsList.length) currentCertIndex = 0;
 
-  // Find certificate SVG inside catalog and encode to Base64 for the Lightbox
-  const card = document.querySelector(`.cert-item-card[onclick="openCert('${certId}')"]`);
-  if (card) {
-    const svgEl = card.querySelector('svg');
-    if (svgEl) {
-      const svgString = new XMLSerializer().serializeToString(svgEl);
-      const svg64 = btoa(unescape(encodeURIComponent(svgString)));
-      lightboxImg.src = `data:image/svg+xml;base64,${svg64}`;
-    }
-  }
+  lightboxImg.src = certsList[currentCertIndex];
 
   lightbox.style.display = 'flex';
   document.body.style.overflow = 'hidden';
@@ -202,12 +197,12 @@ function closeCert() {
 
 function nextCert() {
   currentCertIndex = (currentCertIndex + 1) % certsList.length;
-  openCert(certsList[currentCertIndex]);
+  openCert(currentCertIndex);
 }
 
 function prevCert() {
   currentCertIndex = (currentCertIndex - 1 + certsList.length) % certsList.length;
-  openCert(certsList[currentCertIndex]);
+  openCert(currentCertIndex);
 }
 
 /* ─────────────────────────────────────────
@@ -284,8 +279,36 @@ function prevOffice() {
 }
 
 /* ─────────────────────────────────────────
-   8. KEYBOARD NAVIGATION FOR LIGHTBOXES
+   8. KEYBOARD & TOUCH NAVIGATION FOR LIGHTBOXES
    ──────────────────────────────────────── */
+let touchStartX = 0;
+let touchEndX = 0;
+
+function bindTouchSwipe(elementId, onSwipeLeft, onSwipeRight) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+  
+  el.addEventListener('touchstart', e => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  el.addEventListener('touchend', e => {
+    touchEndX = e.changedTouches[0].screenX;
+    const threshold = 50;
+    if (touchEndX < touchStartX - threshold && onSwipeLeft) {
+      onSwipeLeft();
+    }
+    if (touchEndX > touchStartX + threshold && onSwipeRight) {
+      onSwipeRight();
+    }
+  }, { passive: true });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  bindTouchSwipe('lightbox', nextCert, prevCert);
+  bindTouchSwipe('office-lightbox', nextOffice, prevOffice);
+});
+
 document.addEventListener('keydown', (e) => {
   const certLightbox = document.getElementById('lightbox').style.display === 'flex';
   const officeLightbox = document.getElementById('office-lightbox').style.display === 'flex';
@@ -313,7 +336,7 @@ let phoneMaskInstance = null;
 
 document.addEventListener('DOMContentLoaded', () => {
   const phoneInput = document.getElementById('f-phone');
-  if (phoneInput) {
+  if (phoneInput && typeof IMask !== 'undefined') {
     phoneMaskInstance = IMask(phoneInput, {
       mask: '+{7} (000) 000-00-00'
     });
@@ -398,7 +421,7 @@ async function handleFormSubmit() {
     if (data.ok) {
       // Metrika conversion event trigger
       if (typeof ym !== 'undefined') {
-        ym(вставить, 'reachGoal', 'form_lead_kovaleva');
+        ym('вставить', 'reachGoal', 'form_lead_kovaleva');
       }
 
       feedbackEl.classList.add('success');
@@ -457,3 +480,136 @@ window.closeOffice = closeOffice;
 window.nextOffice = nextOffice;
 window.prevOffice = prevOffice;
 window.handleFormSubmit = handleFormSubmit;
+
+/* ─────────────────────────────────────────
+   12. HERO PORTRAIT SLIDER
+   ──────────────────────────────────────── */
+let currentHeroSlide = 0;
+let heroInterval = null;
+
+function showHeroSlide(index) {
+  const heroSlides = document.querySelectorAll('.hero-slide');
+  const heroDots = document.querySelectorAll('.hero-dot');
+  if (!heroSlides.length) return;
+
+  currentHeroSlide = index;
+  if (currentHeroSlide < 0) {
+    currentHeroSlide = heroSlides.length - 1;
+  } else if (currentHeroSlide >= heroSlides.length) {
+    currentHeroSlide = 0;
+  }
+
+  heroSlides.forEach((slide, i) => {
+    if (i === currentHeroSlide) {
+      slide.classList.add('active');
+    } else {
+      slide.classList.remove('active');
+    }
+  });
+
+  heroDots.forEach((dot, i) => {
+    if (i === currentHeroSlide) {
+      dot.classList.add('active');
+    } else {
+      dot.classList.remove('active');
+    }
+  });
+}
+
+function internalSlideHero(direction) {
+  showHeroSlide(currentHeroSlide + direction);
+}
+
+function internalSetHeroSlide(index) {
+  showHeroSlide(index);
+}
+
+function resetHeroTimer() {
+  if (heroInterval) {
+    clearInterval(heroInterval);
+  }
+  heroInterval = setInterval(() => internalSlideHero(1), 6000);
+}
+
+// Complete dynamic binding for all interactive elements to bypass fragile inline HTML handlers
+function bindAllInteractiveElements() {
+  // 1. Hero Slider Controls
+  const heroPrev = document.getElementById('heroPrevBtn');
+  const heroNext = document.getElementById('heroNextBtn');
+  if (heroPrev) {
+    heroPrev.addEventListener('click', () => {
+      resetHeroTimer();
+      internalSlideHero(-1);
+    });
+  }
+  if (heroNext) {
+    heroNext.addEventListener('click', () => {
+      resetHeroTimer();
+      internalSlideHero(1);
+    });
+  }
+
+  const heroDots = document.querySelectorAll('.hero-dot');
+  heroDots.forEach((dot, index) => {
+    dot.removeAttribute('onclick');
+    dot.addEventListener('click', () => {
+      resetHeroTimer();
+      internalSetHeroSlide(index);
+    });
+  });
+
+  // 2. Certificates Carousel Controls
+  const certPrev = document.getElementById('certPrevBtn');
+  const certNext = document.getElementById('certNextBtn');
+  if (certPrev) {
+    certPrev.addEventListener('click', () => {
+      slideCerts(-1);
+    });
+  }
+  if (certNext) {
+    certNext.addEventListener('click', () => {
+      slideCerts(1);
+    });
+  }
+
+  // 3. Certificates Cards click
+  const certCards = document.querySelectorAll('.cert-item-card');
+  certCards.forEach((card, index) => {
+    card.removeAttribute('onclick');
+    card.addEventListener('click', () => {
+      openCert(index);
+    });
+  });
+
+  // 4. Hero Touch Swipe
+  bindTouchSwipe('heroSlidesWrapper', () => {
+    resetHeroTimer();
+    internalSlideHero(1);
+  }, () => {
+    resetHeroTimer();
+    internalSlideHero(-1);
+  });
+}
+
+// Start auto-slider and bind all controls safely with readyState check
+function initHeroSlider() {
+  showHeroSlide(0); // Initialize first active slide
+  resetHeroTimer();
+  bindAllInteractiveElements();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initHeroSlider);
+} else {
+  initHeroSlider();
+}
+
+// Expose hero slider methods globally with timer reset logic
+window.slideHero = (direction) => {
+  resetHeroTimer();
+  internalSlideHero(direction);
+};
+window.setHeroSlide = (index) => {
+  resetHeroTimer();
+  internalSetHeroSlide(index);
+};

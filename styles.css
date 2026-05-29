@@ -231,11 +231,15 @@ img, svg {
 }
 
 .hero-badge {
-  display: inline-flex;
+  display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 12px;
+  text-align: center;
+  gap: 6px;
+  width: 100%;
+  max-width: 440px;
   border: 1px solid var(--sand-medium);
-  padding: 6px 16px;
+  padding: 10px 20px;
   font-family: var(--font-sans);
   font-size: 11px;
   font-weight: 500;
@@ -243,13 +247,7 @@ img, svg {
   letter-spacing: 0.1em;
   color: var(--ink-medium);
   margin-bottom: 30px;
-}
-
-.badge-dot {
-  width: 4px;
-  height: 4px;
-  background-color: var(--terra-warm);
-  border-radius: 50%;
+  background-color: var(--white-ivory);
 }
 
 .manifesto-title {
@@ -350,6 +348,7 @@ img, svg {
   width: 100%;
   height: 520px;
   object-fit: cover;
+  object-position: center 15%;
   border: 1px solid rgba(197, 168, 128, 0.2);
 }
 
@@ -703,16 +702,18 @@ img, svg {
 .methods-list li {
   font-size: 13px;
   color: var(--ink-medium);
-  display: flex;
-  align-items: flex-start;
-  gap: 10px;
+  position: relative;
+  padding-left: 16px;
+  line-height: 1.6;
 }
 
 .methods-list li::before {
   content: '✦';
   color: var(--terra-warm);
   font-size: 10px;
-  margin-top: 2px;
+  position: absolute;
+  left: 0;
+  top: 2px;
 }
 
 .methods-list li span {
@@ -876,9 +877,13 @@ img, svg {
 
 .standards-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1.2fr 1fr;
   gap: 80px;
   align-items: center;
+}
+
+.standards-left, .standards-right {
+  min-width: 0;
 }
 
 .standards-left {
@@ -972,6 +977,9 @@ img, svg {
   scroll-behavior: smooth;
   padding-bottom: 20px;
   scrollbar-width: none; /* Hide standard Firefox scrollbar */
+  width: 100%;
+  max-width: 452px; /* Show exactly 3 cards and enable scrolling carousel feel */
+  margin: 0 auto;
 }
 
 .certs-catalog-flex::-webkit-scrollbar {
@@ -980,8 +988,14 @@ img, svg {
 
 .cert-item-card {
   flex: 0 0 140px;
+  width: 140px !important;
+  height: 230px !important;
   cursor: pointer;
   transition: var(--transition);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow: hidden;
 }
 
 .cert-item-card:hover {
@@ -993,6 +1007,20 @@ img, svg {
   height: 190px;
   box-shadow: var(--shadow-sm);
   border-radius: 4px;
+}
+
+.cert-img-box {
+  width: 140px !important;
+  height: 190px !important;
+  max-width: 140px !important;
+  max-height: 190px !important;
+  object-fit: contain;
+  box-shadow: var(--shadow-sm);
+  border-radius: 4px;
+  border: 1px solid var(--sand-light);
+  background-color: var(--white-ivory);
+  transition: var(--transition);
+  display: block;
 }
 
 .cert-label {
@@ -1211,9 +1239,13 @@ img, svg {
 
 .booking-grid {
   display: grid;
-  grid-template-columns: 0.9fr 1.1fr;
-  gap: 100px;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 80px;
   align-items: center;
+}
+
+.booking-intro, .booking-form-wrapper {
+  min-width: 0;
 }
 
 .booking-intro {
@@ -1710,20 +1742,30 @@ footer {
     display: none;
   }
   
+  .hero-manifesto {
+    padding-top: 130px;
+    padding-bottom: 70px;
+  }
+  
+  .honest-dialogues, .state-navigator, .vectors-practice, .standards-vault, .services-cabinet, .booking-lounge-section {
+    padding-top: 70px;
+    padding-bottom: 70px;
+  }
+  
   .manifesto-title {
-    font-size: 36px;
+    font-size: 34px;
   }
   .manifesto-title-sub {
-    font-size: 20px;
+    font-size: 19px;
   }
   .manifesto-photo, .manifesto-svg {
-    height: 400px;
+    height: 380px;
   }
   .dialogues-heading, .navigator-heading, .vectors-heading, .standards-title, .ledger-heading, .booking-heading {
-    font-size: 32px;
+    font-size: 30px;
   }
   .conversational-card {
-    padding: 30px;
+    padding: 30px 20px;
   }
   .sanctuary-column, .diplomas-drawer-container {
     padding: 35px 24px;
@@ -1792,6 +1834,27 @@ footer {
     bottom: 14px;
     right: 8px;
   }
+  
+  .hero-slider-btn {
+    width: 36px;
+    height: 36px;
+    font-size: 18px;
+  }
+  
+  .hero-slider-dots {
+    bottom: 12px;
+  }
+
+  .portrait-caption {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .punct {
+    display: none;
+  }
+
   .footer-top {
     flex-direction: column;
     gap: 30px;
@@ -1827,3 +1890,121 @@ footer {
     margin-top: 4px;
   }
 }
+
+/* ─────────────────────────────────────────
+   13. HERO SLIDER PREMIUM CAROUSEL
+   ──────────────────────────────────────── */
+.hero-slider-container {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+  border: 1px solid rgba(197, 168, 128, 0.2);
+}
+
+.hero-slides-wrapper {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.8s cubic-bezier(0.25, 0.8, 0.25, 1), visibility 0.8s;
+  z-index: 1;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+  z-index: 2;
+}
+
+.hero-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Elegant control buttons */
+.hero-slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: rgba(250, 247, 242, 0.85);
+  border: 1px solid var(--sand-medium);
+  color: var(--ink-deep);
+  font-size: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition);
+  z-index: 999 !important;
+  padding: 0;
+  line-height: 1;
+  user-select: none;
+  backdrop-filter: blur(4px);
+}
+
+.hero-slider-btn:hover {
+  background-color: var(--white-ivory);
+  border-color: var(--terra-warm);
+  color: var(--terra-warm);
+  box-shadow: var(--shadow-sm);
+}
+
+.hero-slider-btn.prev {
+  left: 16px;
+}
+
+.hero-slider-btn.next {
+  right: 16px;
+}
+
+.hero-slider-dots {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 8px;
+  z-index: 999 !important;
+}
+
+.hero-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background-color: rgba(250, 247, 242, 0.5);
+  border: 1px solid rgba(45, 41, 38, 0.2);
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.hero-dot:hover {
+  background-color: rgba(250, 247, 242, 0.9);
+}
+
+.hero-dot.active {
+  background-color: var(--terra-warm);
+  border-color: var(--terra-warm);
+  transform: scale(1.25);
+  box-shadow: 0 0 8px rgba(197, 168, 128, 0.6);
+}
+
+@media (max-width: 576px) {
+  .hero-slider-container {
+    height: 380px;
+  }
+}
+
