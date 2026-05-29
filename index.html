@@ -1,0 +1,804 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Людмила Шестакова — Практикующий психолог, семейный терапевт</title>
+
+  <!-- SEO Meta Tags -->
+  <meta name="description"
+    content="Людмила Шестакова — профессиональный психолог, системный семейный терапевт, клинический психолог. Бережное журнальное пространство терапии в Ростове-на-Дону, Таганроге и онлайн.">
+  <meta name="keywords"
+    content="психолог, семейный терапевт, психолог ростов, клинический психолог, арт-терапия, телесная терапия, детская психотерапия, кризисный психолог, Шестакова Людмила">
+  <meta name="author" content="Людмила Шестакова">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#FAF7F2">
+
+  <!-- Favicons -->
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>✨</text></svg>">
+
+  <!-- Google Fonts -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="./styles.css">
+
+  <!-- IMask for phone mask -->
+  <script src="https://unpkg.com/imask"></script>
+</head>
+
+<body>
+
+  <!-- Lightbox: Сертификаты -->
+  <div id="lightbox" onclick="closeCert()"
+    style="display:none;position:fixed;inset:0;background:rgba(44,48,46,0.95);z-index:9998;align-items:center;justify-content:center;padding:24px;"
+    role="dialog" aria-modal="true" aria-label="Просмотр диплома">
+    <img id="lightbox-img" alt="Диплом психолога"
+      style="max-width:90vw;max-height:85vh;object-fit:contain;border-radius:4px;box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+    <button type="button" onclick="event.stopPropagation();closeCert()"
+      style="position:absolute;top:24px;right:28px;font-size:36px;color:#FCFAF6;cursor:pointer;line-height:1;background:transparent;border:none;padding:0;"
+      aria-label="Закрыть">×</button>
+    <button type="button" onclick="event.stopPropagation();prevCert()"
+      style="position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:48px;color:#FCFAF6;cursor:pointer;user-select:none;padding:16px;background:transparent;border:none;"
+      aria-label="Предыдущий сертификат">‹</button>
+    <button type="button" onclick="event.stopPropagation();nextCert()"
+      style="position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:48px;color:#FCFAF6;cursor:pointer;user-select:none;padding:16px;background:transparent;border:none;"
+      aria-label="Следующий сертификат">›</button>
+  </div>
+
+  <!-- Lightbox: Фото Кабинета -->
+  <div id="office-lightbox" onclick="closeOffice()"
+    style="display:none;position:fixed;inset:0;background:rgba(44,48,46,0.95);z-index:9999;align-items:center;justify-content:center;padding:24px;"
+    role="dialog" aria-modal="true" aria-label="Просмотр кабинета">
+    <img id="office-img" alt="Кабинет психолога"
+      style="max-width:90vw;max-height:85vh;object-fit:contain;border-radius:4px;box-shadow: 0 20px 40px rgba(0,0,0,0.3);">
+    <button type="button" onclick="event.stopPropagation();closeOffice()"
+      style="position:absolute;top:24px;right:28px;font-size:36px;color:#FCFAF6;cursor:pointer;line-height:1;background:transparent;border:none;padding:0;"
+      aria-label="Закрыть">×</button>
+    <button type="button" onclick="event.stopPropagation();prevOffice()"
+      style="position:absolute;left:16px;top:50%;transform:translateY(-50%);font-size:48px;color:#FCFAF6;cursor:pointer;user-select:none;padding:16px;background:transparent;border:none;"
+      aria-label="Предыдущее фото">‹</button>
+    <button type="button" onclick="event.stopPropagation();nextOffice()"
+      style="position:absolute;right:16px;top:50%;transform:translateY(-50%);font-size:48px;color:#FCFAF6;cursor:pointer;user-select:none;padding:16px;background:transparent;border:none;"
+      aria-label="Следующее фото">›</button>
+  </div>
+
+  <!-- ─── NAV HEADER ─── -->
+  <nav id="nav">
+    <a href="#top" class="nav-logo">Л.<span>Шестакова</span></a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#dialogues" onclick="toggleMenu(false)">Диалоги</a></li>
+      <li><a href="#navigator" onclick="toggleMenu(false)">Состояния</a></li>
+      <li><a href="#vectors" onclick="toggleMenu(false)">Сферы</a></li>
+      <li><a href="#ethics" onclick="toggleMenu(false)">Этика</a></li>
+      <li><a href="#services" onclick="toggleMenu(false)">Услуги и кабинет</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="#booking" class="nav-cta">Запись на прием</a>
+      <button class="menu-toggle" id="menuToggle" aria-label="Открыть мобильное меню" onclick="toggleMenu()">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- ─── HERO MANIFESTO SECTION ─── -->
+  <section class="hero-manifesto" id="top">
+    <div class="manifesto-grid">
+      <div class="manifesto-left">
+        <div class="hero-badge">
+          <span>Бережное присутствие</span>
+          <span class="badge-dot"></span>
+          <span>Ростов-на-Дону / Таганрог / Онлайн</span>
+        </div>
+
+        <h1 class="manifesto-title">
+          Людмила Шестакова
+          <span class="manifesto-title-sub">Терапия как пространство возвращения себе права быть собой</span>
+        </h1>
+
+        <div class="manifesto-essay">
+          <p>В мире, перегруженном ожиданиями, требованиями и нормами, бывает невероятно сложно услышать свой настоящий
+            голос. Моя практика — это не ремонт «сломавшихся» механизмов психики и не раздача шаблонных советов по
+            правильной жизни.</p>
+          <p class="essay-highlight">Это тихое, безопасное пространство, в котором мы бережно исследуем ваши внутренние
+            ландшафты, распутываем сценарии отношений, исцеляем телесную память и восстанавливаем вашу природную
+            целостность.</p>
+        </div>
+
+        <div class="manifesto-actions">
+          <a href="#booking" class="manifesto-btn-primary">Войти в диалог</a>
+        </div>
+      </div>
+
+      <div class="manifesto-right">
+        <div class="editorial-portrait-frame">
+          <img src="photo.jpg" alt="Шестакова Людмила Анатольевна" class="manifesto-photo"
+            onerror="this.style.display='none'; document.getElementById('manifesto-fallback-svg').style.display='block';">
+          <svg id="manifesto-fallback-svg" viewBox="0 0 420 540" class="manifesto-svg"
+            xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="gold-luxury" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#C5A880" />
+                <stop offset="100%" stop-color="#B5945B" />
+              </linearGradient>
+            </defs>
+            <rect width="420" height="540" fill="#EDE9E2" />
+            <circle cx="210" cy="220" r="120" fill="#FFFDFB" opacity="0.9" />
+            <path
+              d="M110,420 C110,300 210,280 210,220 C210,180 180,140 210,100 C240,140 210,180 210,220 C210,280 310,300 310,420 Z"
+              fill="url(#gold-luxury)" opacity="0.75" />
+            <circle cx="210" cy="90" r="14" fill="#C5A880" />
+            <line x1="210" y1="40" x2="210" y2="500" stroke="#DFD9CE" stroke-width="1" stroke-dasharray="6 6" />
+          </svg>
+          <div class="portrait-watermark">SOVEREIGNTY</div>
+          <div class="portrait-caption">
+            <span class="caption-name">Шестакова Л. А.</span>
+            <span class="caption-title">Системный семейный и телесный психотерапевт</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── BLOCK 1: HONEST DIALOGUES (ABOUT ME REPLACEMENT) ─── -->
+  <section class="honest-dialogues" id="dialogues">
+    <div class="dialogues-grid">
+      <div class="dialogues-intro reveal">
+        <span class="editorial-badge">Честные диалоги о терапии</span>
+        <h2 class="dialogues-heading">4 прямых ответа <span class="serif-italic">перед вашей первой сессией</span></h2>
+        <p class="dialogues-lead">Заходить в терапию бывает тревожно. Здесь я отвечаю на вопросы, которые люди чаще
+          всего держат в себе перед тем, как переступить порог кабинета.</p>
+
+        <div class="signature-block">
+          <div class="signature-line"></div>
+          <p class="signature-text">«Бережность не означает слабость. Бережность — это способность выдерживать любую
+            вашу правду с глубоким принятием.»</p>
+          <cite class="signature-author">— Людмила Шестакова</cite>
+        </div>
+      </div>
+
+      <div class="dialogues-qa reveal">
+        <!-- Card 1 -->
+        <div class="dialogue-qa-card" onclick="toggleQA(this)">
+          <div class="qa-header">
+            <span class="qa-num">01.</span>
+            <h3 class="qa-title">С чего начинается настоящая терапия?</h3>
+            <span class="qa-icon">+</span>
+          </div>
+          <div class="qa-body">
+            <p>Она начинается с готовности увидеть себя без защитных масок и привычных ожиданий. В моем присутствии вам
+              не нужно быть «сильным», «успешным» или «удобным». Первые шаги — это просто создание безопасного моста
+              между вашими истинными чувствами и разумом, без оценок и чувства вины.</p>
+          </div>
+        </div>
+
+        <!-- Card 2 -->
+        <div class="dialogue-qa-card" onclick="toggleQA(this)">
+          <div class="qa-header">
+            <span class="qa-num">02.</span>
+            <h3 class="qa-title">Почему именно системный подход и работа с телом?</h3>
+            <span class="qa-icon">+</span>
+          </div>
+          <div class="qa-body">
+            <p>Человек не существует в вакууме. Мы сотканы из связей: с нашей родительской семьей, детским опытом и
+              нашими физическими реакциями. Разговоры в кресле часто бессильны, если тело продолжает кричать симптомом,
+              а семейный сценарий незаметно диктует выбор партнера. Интеграция телесной терапии и системного семейного
+              подхода позволяет распутывать узлы проблем на всех уровнях одновременно.</p>
+          </div>
+        </div>
+
+        <!-- Card 3 -->
+        <div class="dialogue-qa-card" onclick="toggleQA(this)">
+          <div class="qa-header">
+            <span class="qa-num">03.</span>
+            <h3 class="qa-title">Дадите ли вы мне правильный жизненный совет?</h3>
+            <span class="qa-icon">+</span>
+          </div>
+          <div class="qa-body">
+            <p>Ни в коем случае. Готовые шаблонные советы — это форма профессионального насилия, лишающая вас автономии.
+              Моя задача — укрепить вашу внутреннюю опору и помочь вам увидеть скрытые ресурсы вашей собственной
+              психики. Я помогу вам понять, почему вы принимаете те или иные решения, чтобы в итоге вы могли сделать
+              свой собственный, абсолютно свободный выбор.</p>
+          </div>
+        </div>
+
+        <!-- Card 4 -->
+        <div class="dialogue-qa-card" onclick="toggleQA(this)">
+          <div class="qa-header">
+            <span class="qa-num">04.</span>
+            <h3 class="qa-title">Можно ли кардинально изменить жизнь за одну встречу?</h3>
+            <span class="qa-icon">+</span>
+          </div>
+          <div class="qa-body">
+            <p>Будем честны: глубокие нейронные связи, семейные паттерны и зажимы в теле формировались годами, и
+              переписать их за 50 минут невозможно. Однако, за первую сессию мы можем точно локализовать ядро вашей
+              боли, обнаружить, куда уходит ваш жизненный ресурс, и составить бережный, экологичный маршрут для
+              устойчивых внутренних перемен.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── BLOCK 2: STATE NAVIGATOR (THE RESONANCE INTERACTIVE ENGINE) ─── -->
+  <section class="state-navigator" id="navigator">
+    <div class="navigator-header reveal">
+      <span class="editorial-badge">Отправная точка</span>
+      <h2 class="navigator-heading">Навигатор внутренних состояний: <span class="serif-italic">где болит сегодня?</span>
+      </h2>
+      <p class="navigator-sub">Выберите состояние, которое наиболее точно созвучно вашему текущему моменту, чтобы
+        увидеть, как именно терапия может развернуть этот вектор в сторону свободы и ресурса.</p>
+    </div>
+
+    <div class="navigator-container reveal">
+      <div class="navigator-menu">
+        <button class="nav-state-btn active" onclick="switchState('anxiety', this)">
+          <span class="state-btn-dot"></span>
+          <span class="state-btn-text">Я застреваю в тревоге и телесных симптомах</span>
+        </button>
+        <button class="nav-state-btn" onclick="switchState('family', this)">
+          <span class="state-btn-dot"></span>
+          <span class="state-btn-text">В наших отношениях растет стена холода</span>
+        </button>
+        <button class="nav-state-btn" onclick="switchState('children', this)">
+          <span class="state-btn-dot"></span>
+          <span class="state-btn-text">Я беспокоюсь о своем ребенке</span>
+        </button>
+        <button class="nav-state-btn" onclick="switchState('emptiness', this)">
+          <span class="state-btn-dot"></span>
+          <span class="state-btn-text">Я чувствую желание что-то изменить в своей жизни</span>
+        </button>
+      </div>
+
+      <div class="resonance-canvas">
+        <!-- Slide 1: Anxiety -->
+        <div class="resonance-slide active" id="slide-anxiety">
+          <div class="slide-main-content">
+            <span class="slide-badge">Тревожные состояния и психосоматика</span>
+            <h3 class="slide-title">Когда тело кричит о том, о чем молчит разум</h3>
+            <p class="slide-desc">Постоянная фоновая тревога, приступы паники, непонятные боли, мышечные зажимы в шее
+              или груди — это физические отпечатки непереработанных эмоций. Психика блокирует чувства, и телу приходится
+              брать удар на себя.</p>
+
+            <div class="slide-methodology">
+              <h4 class="methods-label">Интегральные методы работы:</h4>
+              <ul class="methods-list">
+                <li><span>Телесно-ориентированная терапия</span> — снятие блоков через глубокое дыхание и мышечный релиз
+                </li>
+                <li><span>Арт-терапия</span> — бережная визуализация и контейнирование страхов через образы</li>
+                <li><span>Клинические когнитивные техники</span> — понимание триггеров тревожной системы</li>
+              </ul>
+            </div>
+
+            <button class="slide-cta-btn" onclick="selectBespokeState('тревога и телесные симптомы')">Составить запрос
+              по этому
+              состоянию →</button>
+          </div>
+        </div>
+
+        <!-- Slide 2: Family -->
+        <div class="resonance-slide" id="slide-family">
+          <div class="slide-main-content">
+            <span class="slide-badge">Системные семейные кризисы</span>
+            <h3 class="slide-title">Возвращение близости туда, где поселилось отчуждение</h3>
+            <p class="slide-desc">Повторяющиеся ссоры по одним и тем же сценариям, обида, отсутствие поддержки или
+              гнетущее молчание — это сигналы кризиса семейной системы. В парной терапии мы ищем не виновного, а скрытые
+              циклы взаимодействия, которые разрушают вашу связь.</p>
+
+            <div class="slide-methodology">
+              <h4 class="methods-label">Интегральные методы работы:</h4>
+              <ul class="methods-list">
+                <li><span>Системная семейная психотерапия (ССТ)</span> — анализ правил и ролей в семейной ячейке</li>
+                <li><span>Эмоционально-фокусированные техники</span> — восстановление безопасной эмоциональной
+                  привязанности</li>
+                <li><span>Коммуникативные сессии</span> — обучение безопасному выражению нужд и претензий</li>
+              </ul>
+            </div>
+
+            <button class="slide-cta-btn"
+              onclick="selectBespokeState('семейный кризис и охлаждение в отношениях')">Составить запрос по этому
+              состоянию →</button>
+          </div>
+        </div>
+
+        <!-- Slide 3: Children -->
+        <div class="resonance-slide" id="slide-children">
+          <div class="slide-main-content">
+            <span class="slide-badge">Детская и подростковая терапия</span>
+            <h3 class="slide-title">Бережный переводчик с языка детских симптомов</h3>
+            <p class="slide-desc">Детские страхи, энурез, агрессивные вспышки или резкое отчуждение подростка — это не
+              просто «плохое поведение». Ребенок транслирует свой внутренний дискомфорт или системное напряжение в семье
+              доступными ему способами.</p>
+
+            <div class="slide-methodology">
+              <h4 class="methods-label">Интегральные методы работы:</h4>
+              <ul class="methods-list">
+                <li><span>Игровая и песочная арт-терапия</span> — экологичное проживание страхов через игру</li>
+                <li><span>Консультирование детско-родительских пар</span> — настройка теплого родительского контакта
+                </li>
+                <li><span>Подростковое сопровождение</span> — мягкая поддержка в период кризиса самоопределения</li>
+              </ul>
+            </div>
+
+            <button class="slide-cta-btn"
+              onclick="selectBespokeState('отношения с ребенком и беспокойство за его будущее')">Составить запрос
+              по этому состоянию →</button>
+          </div>
+        </div>
+
+        <!-- Slide 4: Emptiness -->
+        <div class="resonance-slide" id="slide-emptiness">
+          <div class="slide-main-content">
+            <span class="slide-badge">Личностные кризисы и травмы</span>
+            <h3 class="slide-title">Сборка себя по частям после жизненных штормов</h3>
+            <p class="slide-desc">Переживание утраты, развода, внезапного кризиса или гнетущее ощущение «я живу не своей
+              жизнью» часто погружают в глубокую апатию. Это время, когда старые опоры рухнули, а новые еще не проросли.
+            </p>
+
+            <div class="slide-methodology">
+              <h4 class="methods-label">Интегральные методы работы:</h4>
+              <ul class="methods-list">
+                <li><span>Кризисная терапия и работа с травмой</span> — бережная переработка травматических событий</li>
+                <li><span>Экзистенциально-гуманистический подход</span> — поиск новых внутренних ориентиров</li>
+                <li><span>Ресурсные арт-практики</span> — нахождение зон внутренней устойчивости и опор</li>
+              </ul>
+            </div>
+
+            <button class="slide-cta-btn" onclick="selectBespokeState('чувство пустоты и жизненный кризис')">Составить
+              запрос по этому
+              состоянию →</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── BLOCK 3: VECTORS OF PRACTICE (SPECIALIZATIONS SHOWCASE) ─── -->
+  <section class="vectors-practice" id="vectors">
+    <div class="vectors-header reveal">
+      <span class="editorial-badge">Сферы практики</span>
+      <h2 class="vectors-heading">3 Вектора профессиональной помощи: <span class="serif-italic">целостный охват</span>
+      </h2>
+      <p class="vectors-sub">Вся моя клиническая и практическая работа структурирована по трем фундаментальным
+        направлениям для точного терапевтического воздействия.</p>
+    </div>
+
+    <div class="vectors-catalog">
+      <!-- Vector 1 -->
+      <div class="vector-card reveal">
+        <div class="vector-visual-col">
+          <span class="vector-number">I.</span>
+          <div class="vector-line"></div>
+        </div>
+        <div class="vector-content-col">
+          <span class="vector-tag">Индивидуальность</span>
+          <h3 class="vector-title">Личность и внутренний баланс</h3>
+          <p class="vector-description">Глубокая терапевтическая работа с запросами личного характера: выход из
+            депрессивных фаз, проработка навязчивых страхов, обретение самоценности и восстановление после острых
+            кризисных событий.</p>
+          <ul class="vector-specs">
+            <li onclick="selectBespokeState('Индивидуальная терапия', true)">Индивидуальная терапия взрослых</li>
+            <li onclick="selectBespokeState('Клинические аспекты психотерапии', true)">про мги
+              лет</li>
+            <li onclick="selectBespokeState('Кризисы и травмы', true)">Сопровождение в кризисах, при утрате и травмах
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Vector 2 -->
+      <div class="vector-card reveal">
+        <div class="vector-visual-col">
+          <span class="vector-number">II.</span>
+          <div class="vector-line"></div>
+        </div>
+        <div class="vector-content-col">
+          <span class="vector-tag">Отношения</span>
+          <h3 class="vector-title">Связи, поколения и семейные системы</h3>
+          <p class="vector-description">Оздоровление отношений внутри семьи: бережная медиация конфликтов супругов,
+            гармонизация детско-родительского контакта и помощь подросткам в обретении своего голоса без разрушения
+            связей.</p>
+          <ul class="vector-specs">
+            <li onclick="selectBespokeState('Семейная терапия', true)">Системная семейная психотерапия супругов</li>
+            <li onclick="selectBespokeState('Работа с детско-родительскими парами', true)">Консультирование
+              детско-родительских пар</li>
+            <li onclick="selectBespokeState('Работа с детьми и подростками', true)">Терапия детей и психологическая
+              помощь
+              подросткам</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Vector 3 -->
+      <div class="vector-card reveal">
+        <div class="vector-visual-col">
+          <span class="vector-number">III.</span>
+          <div class="vector-line"></div>
+        </div>
+        <div class="vector-content-col">
+          <span class="vector-tag">Интеграция</span>
+          <h3 class="vector-title">Язык тела и свобода творчества</h3>
+          <p class="vector-description">Бережные проективные методы работы, когда ум сопротивляется или слов
+            недостаточно для выражения глубинной боли. Работа с мышечным панцирем и психосоматическими проявлениями.</p>
+          <ul class="vector-specs">
+            <li onclick="selectBespokeState('Телесно-ориентированная терапия и психосоматика', true)">
+              Телесно-ориентированная
+              психотерапия</li>
+            <li onclick="selectBespokeState('Арт-терапия', true)">Методы профессиональной Арт-терапии</li>
+            <li onclick="selectBespokeState('Телесно-ориентированная терапия', true)">Снятие мышечных зажимов и
+              хронического
+              напряжения</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── BLOCK 4: STANDARDS & CERTIFICATE VAULT ─── -->
+  <section class="standards-vault" id="ethics">
+    <div class="standards-grid">
+      <div class="standards-left reveal">
+        <span class="editorial-badge">Кодекс надежности</span>
+        <h2 class="standards-title">Клиническая этика и <span class="serif-italic">стандарты безопасности</span></h2>
+        <p class="standards-lead">Кабинет психотерапевта — это территория абсолютной психологической гигиены. Качество
+          моей помощи держится на трех незыблемых клинических столпах:</p>
+
+        <div class="pillar-row">
+          <div class="pillar-icon">✓</div>
+          <div class="pillar-details">
+            <h4 class="pillar-title">Фундаментальный академический базис</h4>
+            <p class="pillar-text">Высшее психологическое образование и многолетняя переподготовка в
+              практических методах. Никаких эзотерических и сомнительных околонаучных теорий.</p>
+          </div>
+        </div>
+
+        <div class="pillar-row">
+          <div class="pillar-icon">✓</div>
+          <div class="pillar-details">
+            <h4 class="pillar-title">Регулярная супервизорская гигиена</h4>
+            <p class="pillar-text">Обязательное условие безопасной практики. Я регулярно прохожу личную психотерапию,
+              супервизии в профессиональных сообществах и состою в балинтовских группах.</p>
+          </div>
+        </div>
+
+        <div class="pillar-row">
+          <div class="pillar-icon">✓</div>
+          <div class="pillar-details">
+            <h4 class="pillar-title">Абсолютная конфиденциальность</h4>
+            <p class="pillar-text">Строгий этический кодекс. Любые детали вашей истории, факт обращения и ваши
+              переживания никогда не покинут пределы нашего терапевтического диалога.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="standards-right reveal">
+        <div class="diplomas-drawer-container">
+          <div class="drawer-header">
+            <h3 class="drawer-heading">Хранилище дипломов и квалификаций</h3>
+            <p class="drawer-subtitle">Официальные свидетельства профессиональной компетентности</p>
+          </div>
+
+          <div class="certs-catalog-flex" id="certsCarousel">
+            <!-- Cert 1 -->
+            <div class="cert-item-card" onclick="openCert('diploma1')">
+              <svg viewBox="0 0 160 220" class="cert-svg-box">
+                <rect width="160" height="220" fill="#FFFDFB" rx="4" stroke="#EDE9E2" stroke-width="2" />
+                <rect x="8" y="8" width="144" height="204" fill="none" stroke="#C5A880" stroke-dasharray="1 3"
+                  stroke-width="1" />
+                <text x="80" y="45" font-family="'Cormorant Garamond', serif" font-size="13" font-weight="bold"
+                  fill="#2D2926" text-anchor="middle">ДИПЛОМ</text>
+                <line x1="40" y1="55" x2="120" y2="55" stroke="#C5A880" stroke-width="1" />
+                <text x="80" y="90" font-family="'Plus Jakarta Sans', sans-serif" font-size="7" fill="#8C847C"
+                  text-anchor="middle">высшее образование</text>
+                <text x="80" y="110" font-family="'Cormorant Garamond', serif" font-size="9" font-style="italic"
+                  fill="#2D2926" text-anchor="middle">Л. А. Шестакова</text>
+                <text x="80" y="140" font-family="'Plus Jakarta Sans', sans-serif" font-size="6" fill="#8C847C"
+                  text-anchor="middle" width="120">Практическая психология</text>
+                <rect x="68" y="170" width="24" height="24" rx="12" fill="#FAF3E3" />
+                <circle cx="80" cy="182" r="4" fill="#C5A880" />
+              </svg>
+              <div class="cert-label">Высшее клиническое</div>
+            </div>
+
+            <!-- Cert 2 -->
+            <div class="cert-item-card" onclick="openCert('diploma2')">
+              <svg viewBox="0 0 160 220" class="cert-svg-box">
+                <rect width="160" height="220" fill="#FFFDFB" rx="4" stroke="#EDE9E2" stroke-width="2" />
+                <rect x="8" y="8" width="144" height="204" fill="none" stroke="#C5A880" stroke-dasharray="1 3"
+                  stroke-width="1" />
+                <text x="80" y="45" font-family="'Cormorant Garamond', serif" font-size="12" font-weight="bold"
+                  fill="#2D2926" text-anchor="middle">СЕРТИФИКАТ</text>
+                <line x1="40" y1="55" x2="120" y2="55" stroke="#C5A880" stroke-width="1" />
+                <text x="80" y="90" font-family="'Plus Jakarta Sans', sans-serif" font-size="7" fill="#8C847C"
+                  text-anchor="middle">системный подход</text>
+                <text x="80" y="110" font-family="'Cormorant Garamond', serif" font-size="9" font-style="italic"
+                  fill="#2D2926" text-anchor="middle">Семейная терапия</text>
+                <text x="80" y="140" font-family="'Plus Jakarta Sans', sans-serif" font-size="6" fill="#8C847C"
+                  text-anchor="middle">Работа с парами и детьми</text>
+                <rect x="68" y="170" width="24" height="24" rx="12" fill="#C5A880" opacity="0.3" />
+                <circle cx="80" cy="182" r="4" fill="#2D2926" />
+              </svg>
+              <div class="cert-label">Семейная терапия</div>
+            </div>
+
+            <!-- Cert 3 -->
+            <div class="cert-item-card" onclick="openCert('diploma3')">
+              <svg viewBox="0 0 160 220" class="cert-svg-box">
+                <rect width="160" height="220" fill="#FFFDFB" rx="4" stroke="#EDE9E2" stroke-width="2" />
+                <rect x="8" y="8" width="144" height="204" fill="none" stroke="#C5A880" stroke-dasharray="1 3"
+                  stroke-width="1" />
+                <text x="80" y="45" font-family="'Cormorant Garamond', serif" font-size="11" font-weight="bold"
+                  fill="#2D2926" text-anchor="middle">СПЕЦИАЛИЗАЦИЯ</text>
+                <line x1="40" y1="55" x2="120" y2="55" stroke="#C5A880" stroke-width="1" />
+                <text x="80" y="90" font-family="'Plus Jakarta Sans', sans-serif" font-size="7" fill="#8C847C"
+                  text-anchor="middle">телесный метод</text>
+                <text x="80" y="110" font-family="'Cormorant Garamond', serif" font-size="9" font-style="italic"
+                  fill="#2D2926" text-anchor="middle">Телесная терапия</text>
+                <text x="80" y="140" font-family="'Plus Jakarta Sans', sans-serif" font-size="6" fill="#8C847C"
+                  text-anchor="middle">Психосоматика и травма</text>
+                <rect x="68" y="170" width="24" height="24" rx="12" fill="#B5945B" opacity="0.4" />
+                <circle cx="80" cy="182" r="4" fill="#FFFDFB" />
+              </svg>
+              <div class="cert-label">Телесная практика</div>
+            </div>
+
+            <!-- Cert 4 -->
+            <div class="cert-item-card" onclick="openCert('diploma4')">
+              <svg viewBox="0 0 160 220" class="cert-svg-box">
+                <rect width="160" height="220" fill="#FFFDFB" rx="4" stroke="#EDE9E2" stroke-width="2" />
+                <rect x="8" y="8" width="144" height="204" fill="none" stroke="#C5A880" stroke-dasharray="1 3"
+                  stroke-width="1" />
+                <text x="80" y="45" font-family="'Cormorant Garamond', serif" font-size="11" font-weight="bold"
+                  fill="#2D2926" text-anchor="middle">СПЕЦИАЛИЗАЦИЯ</text>
+                <line x1="40" y1="55" x2="120" y2="55" stroke="#C5A880" stroke-width="1" />
+                <text x="80" y="90" font-family="'Plus Jakarta Sans', sans-serif" font-size="7" fill="#8C847C"
+                  text-anchor="middle">арт-терапия</text>
+                <text x="80" y="110" font-family="'Cormorant Garamond', serif" font-size="9" font-style="italic"
+                  fill="#2D2926" text-anchor="middle">Арт-психотерапия</text>
+                <text x="80" y="140" font-family="'Plus Jakarta Sans', sans-serif" font-size="6" fill="#8C847C"
+                  text-anchor="middle">Творческие методы терапии</text>
+                <rect x="68" y="170" width="24" height="24" rx="12" fill="#FAF3E3" opacity="0.8" />
+                <circle cx="80" cy="182" r="4" fill="#B5945B" />
+              </svg>
+              <div class="cert-label">Арт-терапия</div>
+            </div>
+          </div>
+
+          <div class="drawer-navigation">
+            <button class="drawer-btn prev" aria-label="Назад" onclick="slideCerts(-1)">‹</button>
+            <button class="drawer-btn next" aria-label="Вперед" onclick="slideCerts(1)">›</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── BLOCK 5: PRICE LEDGER & SANCTUARY CABINET ─── -->
+  <section class="services-cabinet" id="services">
+    <div class="services-grid">
+      <!-- Left side: Tariff Ledger -->
+      <div class="ledger-column reveal">
+        <span class="editorial-badge">Форматы и цены</span>
+        <h2 class="ledger-heading">Терапевтическое меню</h2>
+        <p class="ledger-desc">Каждая индивидуальная или семейная встреча длится ровно 50 минут. Это клинический
+          стандарт терапевтического часа, позволяющий удерживать фокус внимания и сохранять глубину работы.</p>
+
+        <div class="price-ledger">
+          <!-- Item 1 -->
+          <div class="ledger-item">
+            <div class="ledger-top-row">
+              <span class="ledger-title">Индивидуальная онлайн-консультация</span>
+              <span class="ledger-dots"></span>
+              <span class="ledger-cost">3 500 ₽</span>
+            </div>
+            <p class="ledger-sub-text">Видеосвязь (Zoom / Telegram / Яндекс.Телемост) из любой точки мира. Полностью
+              равноценна
+              личному приему.</p>
+            <button class="ledger-book-btn"
+              onclick="selectBespokeState('Индивидуальная онлайн-консультация', true)">Запросить онлайн-сессию</button>
+          </div>
+
+          <!-- Item 2 -->
+          <div class="ledger-item">
+            <div class="ledger-top-row">
+              <span class="ledger-title">Личный очный прием в Ростове-на-Дону</span>
+              <span class="ledger-dots"></span>
+              <span class="ledger-cost">4 000 ₽</span>
+            </div>
+            <p class="ledger-sub-text">Консультация в тихом, уютном и специально оборудованном кабинете в самом центре
+              Ростова-на-Дону.</p>
+            <button class="ledger-book-btn"
+              onclick="selectBespokeState('Очная сессия в кабинете в Ростове', true)">Запросить прием в Ростове</button>
+          </div>
+
+          <!-- Item 2b -->
+          <div class="ledger-item">
+            <div class="ledger-top-row">
+              <span class="ledger-title">Личный очный прием в Таганроге</span>
+              <span class="ledger-dots"></span>
+              <span class="ledger-cost">3 500 ₽</span>
+            </div>
+            <p class="ledger-sub-text">Прием в Семейном психологическом центре «Навстречу жизни» по адресу:
+              Александровская ул., 77.</p>
+            <button class="ledger-book-btn"
+              onclick="selectBespokeState('Очная сессия в центре в Таганроге', true)">Запросить прием в
+              Таганроге</button>
+          </div>
+
+          <!-- Item 3 -->
+          <div class="ledger-item">
+            <div class="ledger-top-row">
+              <span class="ledger-title">Семейная сессия (очно/онлайн)</span>
+              <span class="ledger-dots"></span>
+              <span class="ledger-cost">6 000 ₽</span>
+            </div>
+            <p class="ledger-sub-text">Парная сессия для супругов или детско-родительской пары. Глубокий разбор
+              системных семейных сценариев.</p>
+            <button class="ledger-book-btn" onclick="selectBespokeState('Семейная консультация', true)">Запросить
+              семейный формат</button>
+          </div>
+
+          <!-- Item 4 -->
+          <div class="ledger-item">
+            <div class="ledger-top-row">
+              <span class="ledger-title">Пакет глубокого сопровождения (5 сессий)</span>
+              <span class="ledger-dots"></span>
+              <span class="ledger-cost">16 000 ₽</span>
+            </div>
+            <p class="ledger-sub-text">Для тех, кто нацелен на долгосрочную терапевтическую работу. Фиксирует время в
+              расписании.</p>
+            <button class="ledger-book-btn"
+              onclick="selectBespokeState('Пакет терапевтического сопровождения', true)">Запросить пакет сессий</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right side: Sanctuary Cabinet Preview -->
+      <div class="sanctuary-column reveal">
+        <span class="editorial-badge">Пространства приема</span>
+        <h2 class="sanctuary-title">Где проходят <span class="serif-italic">наши очные встречи</span></h2>
+        <p class="sanctuary-lead">Для очной работы созданы бережные условия в двух городах, чтобы каждая встреча
+          проходила в обстановке безопасности, конфиденциальности и психологического комфорта.</p>
+
+        <div class="sanctuary-locations">
+          <div class="sanctuary-location-item">
+            <h4>📍 г. Ростов-на-Дону</h4>
+            <p>Уютный приватный кабинет в тихом дворике исторического центра города. Качественная звукоизоляция,
+              анатомические кресла, мягкий свет и натуральный чай для заземления.</p>
+          </div>
+
+          <div class="sanctuary-location-item">
+            <h4>📍 г. Таганрог</h4>
+            <p>Очный прием в <strong>Семейном психологическом центре «Навстречу жизни»</strong> (Александровская ул.,
+              77). Специализированное пространство для индивидуальной и семейной терапии с теплой, поддерживающей
+              атмосферой.</p>
+          </div>
+        </div>
+
+        <button class="view-gallery-btn" onclick="openOfficeGallery()">📷 Открыть фотогалерею кабинета</button>
+
+        <div class="sanctuary-mini-frame">
+          <svg class="sanctuary-svg-frame" width="100%" height="240" viewBox="0 0 400 240"
+            xmlns="http://www.w3.org/2000/svg">
+            <rect width="400" height="240" fill="#FAF7F2" rx="4" />
+            <rect x="8" y="8" width="384" height="224" fill="none" stroke="#EDE9E2" stroke-width="1" />
+            <circle cx="200" cy="100" r="40" fill="#FAF3E3" />
+            <path d="M120,200 Q200,120 280,200 Z" fill="#C5A880" opacity="0.35" />
+            <line x1="200" y1="30" x2="200" y2="190" stroke="#DFD9CE" stroke-width="1" stroke-dasharray="4 4" />
+            <text x="200" y="215" font-family="'Plus Jakarta Sans', sans-serif" font-size="10" fill="#8C847C"
+              text-anchor="middle">Зона бережного очного диалога</text>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── BLOCK 6: DYNAMIC CONVERSATIONAL BOOKING LOUNGE ─── -->
+  <section class="booking-lounge-section" id="booking">
+    <div class="booking-grid">
+      <div class="booking-intro reveal">
+        <span class="editorial-badge">Запрос на изменения</span>
+        <h2 class="booking-heading">Сделать первый <span class="serif-italic">самый важный шаг</span></h2>
+        <p class="booking-lead">Заполнение этой формы — это не подписание контракта, а просто бережный способ сказать «я
+          готов начать». Расскажите мне о себе в форме справа, и я свяжусь с вами в течение 24 часов.</p>
+
+        <div class="booking-alternative-contacts">
+          <p class="contacts-title">Предпочитаете написать напрямую?</p>
+          <div class="direct-links">
+            <a href="https://t.me/lyudasch_psy" target="_blank" rel="noopener noreferrer"
+              class="direct-contact-btn telegram">
+              <span>Telegram: @lyudasch_psy</span>
+            </a>
+            <a href="https://wa.me/79188593637" target="_blank" rel="noopener noreferrer"
+              class="direct-contact-btn whatsapp">
+              <span>WhatsApp: +7 (918) 859-36-37</span>
+            </a>
+          </div>
+          <div class="direct-email-address">
+            <span>Электронная почта:</span>
+            <a href="mailto:lyudasch@ya.ru" class="email-link">lyudasch@ya.ru</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="booking-form-wrapper reveal">
+        <div class="conversational-card">
+          <h3 class="conversational-heading">Собрать терапевтический запрос</h3>
+
+          <!-- Honeypot spam trap -->
+          <div class="hp-field" aria-hidden="true" style="display: none; position: absolute; left: -9999px;">
+            <label for="f-hp-website">Website field (leave blank)</label>
+            <input type="text" id="f-hp-website" tabindex="-1" autocomplete="off">
+          </div>
+
+          <form id="leadForm" onsubmit="event.preventDefault(); handleFormSubmit();" class="conversational-form">
+            <div class="conversational-sentence">
+              Здравствуйте, меня зовут
+              <span class="inline-input-wrapper name-wrapper">
+                <input type="text" id="f-name" class="inline-input" placeholder="ваше имя" autocomplete="name" required>
+              </span>.
+              Я бы хотел(а) записаться к вам на
+              <span class="inline-input-wrapper select-wrapper">
+                <select id="f-format" class="inline-select" required>
+                  <option value="" disabled selected>выберите формат встречи</option>
+                  <option value="Онлайн">индивидуальную онлайн-сессию</option>
+                  <option value="Очно (Ростов)">очную сессию в кабинете в Ростове</option>
+                  <option value="Очно (Таганрог)">очную сессию в центре в Таганроге</option>
+                  <option value="Семейная">семейную консультацию</option>
+                  <option value="Пакет">пакет из 5 сессий</option>
+                  <option value="Пока не знаю">пока не знаю формат встречи</option>
+                </select>
+              </span>
+              с запросом, который меня сейчас больше всего беспокоит:
+              <span class="inline-input-wrapper message-wrapper">
+                <input type="text" id="f-message" class="inline-input text-msg"
+                  placeholder="тема или ваше состояние кратко..." autocomplete="off">
+              </span>.
+              Пожалуйста, свяжитесь со мной по номеру телефона
+              <span class="inline-input-wrapper phone-wrapper">
+                <input type="tel" id="f-phone" class="inline-input phone-field" placeholder="+7 (___) ___-__-__"
+                  autocomplete="tel" required>
+              </span>.
+            </div>
+
+            <div class="form-bottom-row">
+              <button type="submit" class="btn-submit" id="btnSubmit">Отправить запрос терапевту →</button>
+              <div id="formFeedback" class="form-feedback-message"></div>
+            </div>
+
+            <p class="conversational-privacy">
+              Нажимая кнопку, вы соглашаетесь с тем, что ваши контакты будут использованы Людмилой исключительно для
+              связи с вами и не будут переданы третьим лицам.
+            </p>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─── FOOTER ─── -->
+  <footer>
+    <div class="footer-top">
+      <a href="#top" class="footer-logo">Л.<span>Шестакова</span></a>
+      <div class="footer-nav">
+        <a href="#dialogues">Диалоги</a>
+        <a href="#navigator">Состояния</a>
+        <a href="#vectors">Векторы</a>
+        <a href="#ethics">Этика</a>
+        <a href="#services">Цены</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Людмила Шестакова · Практикующий психолог. Все права защищены.</div>
+    </div>
+  </footer>
+
+  <script src="./main.js" defer></script>
+</body>
+
+</html>
