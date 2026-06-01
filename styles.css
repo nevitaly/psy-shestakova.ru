@@ -99,7 +99,7 @@ img, svg {
   top: 0;
   left: 0;
   width: 100%;
-  height: 90px;
+  height: 70px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -111,7 +111,7 @@ img, svg {
 }
 
 #nav.shrink {
-  height: 70px;
+  height: 60px;
   background-color: var(--glass-bg);
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
@@ -121,7 +121,7 @@ img, svg {
 
 .nav-logo {
   font-family: var(--font-serif);
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--ink-deep);
@@ -135,17 +135,37 @@ img, svg {
 }
 
 .nav-links {
-  display: flex;
   list-style: none;
-  gap: 36px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(15px);
+  -webkit-backdrop-filter: blur(15px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
+  z-index: 999;
+}
+
+.nav-links.active {
+  opacity: 1;
+  visibility: visible;
 }
 
 .nav-links a {
-  font-family: var(--font-sans);
-  font-size: 13px;
+  font-family: var(--font-serif);
+  font-size: 36px;
   font-weight: 500;
-  color: var(--ink-medium);
-  letter-spacing: 0.05em;
+  color: var(--ink-deep);
+  letter-spacing: 0.02em;
   position: relative;
   padding: 6px 0;
 }
@@ -154,7 +174,8 @@ img, svg {
   content: '';
   position: absolute;
   bottom: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 0;
   height: 1px;
   background-color: var(--terra-warm);
@@ -162,7 +183,7 @@ img, svg {
 }
 
 .nav-links a:hover {
-  color: var(--ink-deep);
+  color: var(--terra-warm);
 }
 
 .nav-links a:hover::after {
@@ -181,7 +202,7 @@ img, svg {
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  padding: 12px 24px;
+  padding: 10px 20px;
   background-color: var(--ink-deep);
   color: var(--white-ivory);
   border: 1px solid var(--ink-deep);
@@ -195,16 +216,17 @@ img, svg {
 }
 
 .menu-toggle {
-  display: none;
+  display: flex;
   background: transparent;
   border: none;
   cursor: pointer;
   flex-direction: column;
   gap: 6px;
-  width: 28px;
+  width: 32px;
   height: 24px;
   justify-content: center;
   padding: 0;
+  z-index: 1001;
 }
 
 .menu-toggle .bar {
@@ -212,6 +234,14 @@ img, svg {
   height: 1.5px;
   background-color: var(--ink-deep);
   transition: var(--transition);
+}
+
+.menu-toggle.active .bar:nth-child(1) {
+  transform: translateY(3.75px) rotate(45deg);
+}
+
+.menu-toggle.active .bar:nth-child(2) {
+  transform: translateY(-3.75px) rotate(-45deg);
 }
 
 /* ─────────────────────────────────────────
@@ -1099,20 +1129,36 @@ img, svg {
 .price-ledger {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 16px;
 }
 
 .ledger-item {
   border-bottom: 1px solid var(--sand-medium);
-  padding-bottom: 24px;
+  padding-bottom: 16px;
 }
 
 .ledger-top-row {
   display: flex;
   align-items: baseline;
   justify-content: space-between;
-  margin-bottom: 10px;
   gap: 12px;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.ledger-top-row:hover .ledger-title {
+  color: var(--terra-warm);
+}
+
+.ledger-details {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.6s cubic-bezier(0.25, 0.8, 0.25, 1), padding 0.6s;
+}
+
+.ledger-item.active .ledger-details {
+  max-height: 400px;
+  padding-top: 16px;
 }
 
 .ledger-title {
@@ -1120,6 +1166,7 @@ img, svg {
   font-size: 16px;
   font-weight: 600;
   color: var(--ink-deep);
+  transition: var(--transition);
 }
 
 .ledger-dots {
@@ -1133,6 +1180,22 @@ img, svg {
   font-size: 20px;
   font-weight: 600;
   color: var(--ink-deep);
+  display: flex;
+  align-items: center;
+}
+
+.ledger-icon {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 26px;
+  font-weight: 300;
+  margin-right: 14px;
+  color: var(--terra-warm);
+  transition: var(--transition);
+}
+
+.ledger-item.active .ledger-icon {
+  transform: rotate(45deg);
 }
 
 .ledger-sub-text {
@@ -1565,6 +1628,8 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
   font-family: var(--font-sans);
   font-size: 12px;
   color: rgba(255,255,255,0.4);
@@ -1574,6 +1639,21 @@ footer {
   text-transform: uppercase;
   letter-spacing: 0.1em;
   color: var(--terra-warm);
+}
+
+.footer-dev {
+  font-family: var(--font-sans);
+  color: rgba(255, 255, 255, 0.4);
+}
+
+.footer-dev a {
+  color: rgba(255, 255, 255, 0.4);
+  text-decoration: none;
+  transition: var(--transition);
+}
+
+.footer-dev a:hover {
+  color: rgba(255, 255, 255, 0.8);
 }
 
 /* ─────────────────────────────────────────
@@ -1628,6 +1708,23 @@ footer {
 /* ─────────────────────────────────────────
    RESPONSIVE DESIGN (MEDIA QUERIES)
    ──────────────────────────────────────── */
+@media (min-width: 992px) {
+  .ledger-icon {
+    display: none;
+  }
+  .ledger-details {
+    max-height: none !important;
+    overflow: visible;
+    padding-top: 16px;
+  }
+  .ledger-top-row {
+    cursor: default;
+  }
+  .ledger-top-row:hover .ledger-title {
+    color: var(--ink-deep);
+  }
+}
+
 @media (max-width: 1200px) {
   #nav {
     padding: 0 5%;
@@ -1704,39 +1801,7 @@ footer {
 }
 
 @media (max-width: 767px) {
-  .menu-toggle {
-    display: flex;
-    z-index: 1001;
-  }
-  
-  .nav-links {
-    position: fixed;
-    top: 0;
-    right: -100%;
-    width: 80%;
-    height: 100vh;
-    background-color: var(--white-ivory);
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 40px;
-    box-shadow: -10px 0 30px rgba(0,0,0,0.05);
-    transition: all 0.5s cubic-bezier(0.25, 0.8, 0.25, 1);
-  }
-  
-  .nav-links.active {
-    right: 0;
-  }
-  
-  .menu-toggle.active .bar:nth-child(1) {
-    transform: translateY(8px) rotate(45deg);
-  }
-  .menu-toggle.active .bar:nth-child(2) {
-    opacity: 0;
-  }
-  .menu-toggle.active .bar:nth-child(3) {
-    transform: translateY(-8px) rotate(-45deg);
-  }
+
   
   .nav-cta {
     display: none;

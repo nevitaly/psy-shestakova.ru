@@ -114,14 +114,16 @@ function selectBespokeState(specName, isFormatOnly = false) {
   if (formatSelect) {
     if (specName.includes('онлайн') || specName.includes('Онлайн')) {
       formatSelect.value = 'Онлайн';
-    } else if (specName.includes('Таганрог') || specName.includes('Таганроге') || specName.includes('Таганроге')) {
+    } else if (specName.includes('Таганрог') || specName.includes('Таганроге')) {
       formatSelect.value = 'Очно (Таганрог)';
     } else if (specName.includes('очно') || specName.includes('Очно') || specName.includes('кабинет') || specName.includes('Ростов')) {
       formatSelect.value = 'Очно (Ростов)';
     } else if (specName.includes('Семейная') || specName.includes('семейную') || specName.includes('семейный') || specName.includes('ребенком') || specName.includes('родите')) {
       formatSelect.value = 'Семейная';
-    } else if (specName.includes('Пакет') || specName.includes('пакет')) {
-      formatSelect.value = 'Пакет';
+    } else if (specName.includes('роды') || specName.includes('родам') || specName.includes('родов') || specName.includes('Подготовка к родам')) {
+      formatSelect.value = 'Подготовка к родам';
+    } else if (specName.includes('Супервизия') || specName.includes('супервизи') || specName.includes('коллег')) {
+      formatSelect.value = 'Супервизия';
     } else {
       formatSelect.value = 'Пока не знаю';
     }
@@ -612,4 +614,22 @@ window.slideHero = (direction) => {
 window.setHeroSlide = (index) => {
   resetHeroTimer();
   internalSetHeroSlide(index);
+};
+
+/* ─────────────────────────────────────────
+   14. LEDGER ACCORDION
+   ──────────────────────────────────────── */
+window.toggleLedger = function(element) {
+  const item = element.closest('.ledger-item');
+  
+  // Close others (optional, makes it a true accordion)
+  const allItems = document.querySelectorAll('.ledger-item');
+  allItems.forEach(i => {
+    if (i !== item) {
+      i.classList.remove('active');
+    }
+  });
+
+  // Toggle current
+  item.classList.toggle('active');
 };
