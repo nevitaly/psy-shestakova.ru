@@ -174,7 +174,11 @@ const certsList = [
   'img/certificates/4.jpg',
   'img/certificates/5.jpg',
   'img/certificates/6.jpg',
-  'img/certificates/7.jpg'
+  'img/certificates/7.jpg',
+  'img/certificates/8.jpg',
+  'img/certificates/9.jpg',
+  'img/certificates/10.jpg',
+  'img/certificates/11.jpg'
 ];
 let currentCertIndex = 0;
 
@@ -211,41 +215,8 @@ function prevCert() {
    7. OFFICE GALLERY LIGHTBOX (SENSORY ILLUSTRATIONS)
    ──────────────────────────────────────── */
 const officePhotos = [
-  `<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
-    <rect width="600" height="400" fill="#FAF7F2" rx="6"/>
-    <rect x="20" y="20" width="560" height="360" fill="none" stroke="#EDE9E2" stroke-width="2"/>
-    <text x="300" y="80" font-family="'Cormorant Garamond', serif" font-size="28" font-style="italic" fill="#C5A880" text-anchor="middle">Зона бережной терапии</text>
-    <!-- Sage green therapy chair drawing -->
-    <path d="M220,320 L380,320 M300,320 L300,280" stroke="#2D2926" stroke-width="4"/>
-    <path d="M250,280 Q300,290 350,280 L360,200 Q300,190 240,200 Z" fill="#7E8D79"/>
-    <path d="M260,200 Q300,180 340,200" stroke="#FCFAF6" stroke-width="2" fill="none"/>
-    <circle cx="300" cy="130" r="14" fill="#C5A880" opacity="0.4"/>
-    <text x="300" y="350" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="#8C847C" text-anchor="middle">Анатомические кресла, мягкий свет и абсолютное спокойствие</text>
-  </svg>`,
-
-  `<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
-    <rect width="600" height="400" fill="#FAF7F2" rx="6"/>
-    <rect x="20" y="20" width="560" height="360" fill="none" stroke="#EDE9E2" stroke-width="2"/>
-    <text x="300" y="80" font-family="'Cormorant Garamond', serif" font-size="28" font-style="italic" fill="#C5A880" text-anchor="middle">Вид из окон кабинета</text>
-    <!-- Elegant windows drawing -->
-    <rect x="250" y="140" width="100" height="150" fill="#FFFDFB" stroke="#2D2926" stroke-width="2"/>
-    <line x1="300" y1="140" x2="300" y2="290" stroke="#2D2926" stroke-width="1"/>
-    <line x1="250" y1="210" x2="350" y2="210" stroke="#2D2926" stroke-width="1"/>
-    <path d="M200,320 Q230,260 260,320" fill="#7E8D79" opacity="0.8"/>
-    <path d="M340,320 Q370,240 400,320" fill="#7E8D79" opacity="0.4"/>
-    <text x="300" y="350" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="#8C847C" text-anchor="middle">Панорамные окна в тихий зеленый дворик в центре города</text>
-  </svg>`,
-
-  `<svg width="600" height="400" viewBox="0 0 600 400" xmlns="http://www.w3.org/2000/svg">
-    <rect width="600" height="400" fill="#FAF7F2" rx="6"/>
-    <rect x="20" y="20" width="560" height="360" fill="none" stroke="#EDE9E2" stroke-width="2"/>
-    <text x="300" y="80" font-family="'Cormorant Garamond', serif" font-size="28" font-style="italic" fill="#C5A880" text-anchor="middle">Чайный уголок заземления</text>
-    <!-- Tray and Kettle -->
-    <path d="M260,260 L340,260 L350,300 L250,300 Z" fill="#EDE9E2" stroke="#2D2926" stroke-width="2"/>
-    <circle cx="300" cy="230" r="18" fill="#C5A880"/>
-    <path d="M300,212 C295,212 292,208 292,202 Q300,192 300,180 Q300,192 308,202 C308,208 305,212 300,212 Z" fill="#FFFDFB"/>
-    <text x="300" y="350" font-family="'Plus Jakarta Sans', sans-serif" font-size="12" fill="#8C847C" text-anchor="middle">Свежая вода, успокаивающий травяной чай и кофе для гостей</text>
-  </svg>`
+  'img/office/1.jpg',
+  'img/office/2.jpg'
 ];
 let currentOfficeIndex = 0;
 
@@ -263,11 +234,7 @@ function closeOffice() {
 
 function renderOfficePhoto() {
   const imgElement = document.getElementById('office-img');
-  const svgContent = officePhotos[currentOfficeIndex];
-
-  // Base64 serialize to support error-free render
-  const svg64 = btoa(unescape(encodeURIComponent(svgContent)));
-  imgElement.src = `data:image/svg+xml;base64,${svg64}`;
+  imgElement.src = officePhotos[currentOfficeIndex];
 }
 
 function nextOffice() {
@@ -632,4 +599,61 @@ window.toggleLedger = function(element) {
 
   // Toggle current
   item.classList.toggle('active');
+};
+
+/* ─────────────────────────────────────────
+   15. FORM SUBMISSION (FORMSUBMIT AJAX)
+   ──────────────────────────────────────── */
+window.handleFormSubmit = async function() {
+  const btnSubmit = document.getElementById('btnSubmit');
+  const feedback = document.getElementById('formFeedback');
+  const form = document.getElementById('leadForm');
+  
+  const name = document.getElementById('f-name').value;
+  const format = document.getElementById('f-format').value;
+  const message = document.getElementById('f-message').value || 'Без уточнения запроса';
+  const phone = document.getElementById('f-phone').value;
+  
+  if (!name || !phone || !format) {
+    feedback.textContent = 'Пожалуйста, заполните обязательные поля.';
+    feedback.style.color = '#B85C38';
+    return;
+  }
+  
+  btnSubmit.disabled = true;
+  btnSubmit.textContent = 'Отправка...';
+  feedback.textContent = '';
+  
+  try {
+    const response = await fetch("https://formsubmit.co/ajax/lyudasch@ya.ru", {
+        method: "POST",
+        headers: { 
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+        },
+        body: JSON.stringify({
+            "Имя": name,
+            "Телефон": phone,
+            "Выбранный формат": format,
+            "Запрос": message,
+            _subject: "Новая заявка с сайта от " + name,
+            _captcha: "false"
+        })
+    });
+    
+    if (response.ok) {
+      feedback.textContent = 'Спасибо! Запрос отправлен. Людмила свяжется с вами в течение 24 часов.';
+      feedback.style.color = '#7E8D79';
+      form.reset();
+    } else {
+      throw new Error('Server error');
+    }
+  } catch (error) {
+    console.error('Error submitting form:', error);
+    feedback.textContent = 'Произошла ошибка при отправке. Пожалуйста, напишите напрямую в мессенджер.';
+    feedback.style.color = '#B85C38';
+  } finally {
+    btnSubmit.disabled = false;
+    btnSubmit.textContent = 'Отправить запрос терапевту →';
+  }
 };
