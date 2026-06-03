@@ -744,11 +744,11 @@
             <div class="conversational-sentence">
               Здравствуйте, меня зовут
               <span class="inline-input-wrapper name-wrapper">
-                <input type="text" id="f-name" class="inline-input" placeholder="ваше имя" autocomplete="name">
+                <input type="text" id="f-name" class="inline-input" placeholder="ваше имя" autocomplete="name" required>
               </span><span class="punct">.</span>
               Я бы хотел(а) записаться к вам на
               <span class="inline-input-wrapper select-wrapper">
-                <select id="f-format" class="inline-select">
+                <select id="f-format" class="inline-select" required>
                   <option value="" disabled selected>выберите формат встречи</option>
                   <option value="Онлайн">индивидуальную онлайн-сессию</option>
                   <option value="Очно (Ростов)">очную сессию в кабинете в Ростове</option>
@@ -767,7 +767,7 @@
               Пожалуйста, свяжитесь со мной по номеру телефона
               <span class="inline-input-wrapper phone-wrapper">
                 <input type="tel" id="f-phone" class="inline-input phone-field" placeholder="+7 (___) ___-__-__"
-                  autocomplete="tel">
+                  autocomplete="tel" required>
               </span><span class="punct">.</span>
             </div>
 

@@ -633,7 +633,7 @@ window.handleFormSubmit = async function(e) {
   feedback.textContent = '';
   
   try {
-    const response = await fetch("https://formsubmit.co/ajax/lyudasch@ya.ru", {
+    const response = await fetch("https://formsubmit.co/ajax/vitaly1111@icloud.com", {
         method: "POST",
         headers: { 
             'Content-Type': 'application/json',
