@@ -633,7 +633,7 @@ window.handleFormSubmit = async function(e) {
   feedback.textContent = '';
   
   try {
-    const response = await fetch("https://formsubmit.co/ajax/vitaly1111@icloud.com", {
+    const response = await fetch("https://formsubmit.co/ajax/lyudasch@ya.ru", {
         method: "POST",
         headers: { 
             'Content-Type': 'application/json',
@@ -650,9 +650,13 @@ window.handleFormSubmit = async function(e) {
     });
     
     if (response.ok) {
-      feedback.textContent = 'Спасибо! Запрос отправлен. Людмила свяжется с вами в течение 24 часов.';
-      feedback.style.color = '#7E8D79';
-      form.reset();
+      // Прячем форму и показываем большое красивое сообщение об успехе
+      form.innerHTML = `
+        <div style="padding: 40px; background-color: #E6F3EE; border-radius: 8px; text-align: center; border: 1px solid #C2E3D6; animation: fadeIn 0.5s ease;">
+          <h3 style="color: #1B7A57; font-size: 22px; font-weight: 500; margin-bottom: 12px;">Спасибо! Ваш запрос отправлен.</h3>
+          <p style="color: #2D4A3E; font-size: 15px; line-height: 1.6;">Мы получили ваши данные. Людмила свяжется с вами по указанному номеру в течение 24 часов.</p>
+        </div>
+      `;
     } else {
       throw new Error('Server error');
     }
