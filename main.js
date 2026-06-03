@@ -56,6 +56,12 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   revealElements.forEach(el => revealObserver.observe(el));
+  
+  // Bind form submit
+  const leadForm = document.getElementById('leadForm');
+  if (leadForm) {
+    leadForm.addEventListener('submit', window.handleFormSubmit);
+  }
 });
 
 /* ─────────────────────────────────────────
@@ -604,7 +610,9 @@ window.toggleLedger = function(element) {
 /* ─────────────────────────────────────────
    15. FORM SUBMISSION (FORMSUBMIT AJAX)
    ──────────────────────────────────────── */
-window.handleFormSubmit = async function() {
+window.handleFormSubmit = async function(e) {
+  if (e) e.preventDefault();
+  
   const btnSubmit = document.getElementById('btnSubmit');
   const feedback = document.getElementById('formFeedback');
   const form = document.getElementById('leadForm');
